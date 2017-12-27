@@ -36,7 +36,6 @@ STEERING_RIGHT_PWM = 360
 # Uncomment the next line and set STEERING_CHANNEL to the Raspberry Pi GPIO Pin
 # STEERING_ACTUATOR = 'direct'  # Options: 'direct', 'pca9685'
 
-
 #THROTTLE
 THROTTLE_CHANNEL = 0
 THROTTLE_FORWARD_PWM = 400
