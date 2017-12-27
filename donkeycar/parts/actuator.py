@@ -41,6 +41,7 @@ class DirectPWM:
         import RPi.GPIO as GPIO
         # Initialise the direct PWM connection
         GPIO.set_mode(GPIO.BCM)
+        GPIO.setup(channel, GPIO.OUT)
         self.pwm = GPIO.PWM(channel, frequency)
         self.channel = channel
         self.frequency = frequency
