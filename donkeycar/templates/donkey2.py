@@ -12,6 +12,8 @@ Options:
     --js             Use physical joystick.
 """
 import os
+from collections import defaultdict
+
 from docopt import docopt
 
 import donkeycar as dk
@@ -20,10 +22,15 @@ import donkeycar as dk
 from donkeycar.parts.camera import PiCamera
 from donkeycar.parts.transform import Lambda
 from donkeycar.parts.keras import KerasCategorical
-from donkeycar.parts.actuator import PCA9685, PWMSteering, PWMThrottle
+from donkeycar.parts.actuator import PCA9685, DirectPWM, PWMSteering, PWMThrottle
 from donkeycar.parts.datastore import TubHandler, TubGroup
 from donkeycar.parts.controller import LocalWebController, JoystickController
 
+# Available actuators
+actuators = defaultdict(lambda x: PCA9685)
+
+actuators['direct'] = DirectPWM
+actuators['pca9685'] = PCA9685
 
 
 def drive(cfg, model_path=None, use_joystick=False):
@@ -98,14 +105,19 @@ def drive(cfg, model_path=None, use_joystick=False):
           inputs=['user/mode', 'user/angle', 'user/throttle',
                   'pilot/angle', 'pilot/throttle'], 
           outputs=['angle', 'throttle'])
-    
-    
-    steering_controller = PCA9685(cfg.STEERING_CHANNEL)
+
+    if hasattr(cfg, 'STEERING_ACTUATOR'):
+        steering_controller = actuators[cfg.STEERING_ACTUATOR](cfg.STEERING_CHANNEL)
+    else:
+        steering_controller = PCA9685(cfg.STEERING_CHANNEL)
     steering = PWMSteering(controller=steering_controller,
                                     left_pulse=cfg.STEERING_LEFT_PWM, 
                                     right_pulse=cfg.STEERING_RIGHT_PWM)
-    
-    throttle_controller = PCA9685(cfg.THROTTLE_CHANNEL)
+
+    if hasattr(cfg, 'THROTTLE_ACTUATOR'):
+        throttle_controller = actuators[cfg.THROTTLE_ACTUATOR](cfg.THROTTLE_CHANNEL)
+    else:
+        throttle_controller = PCA9685(cfg.THROTTLE_CHANNEL)
     throttle = PWMThrottle(controller=throttle_controller,
                                     max_pulse=cfg.THROTTLE_FORWARD_PWM,
                                     zero_pulse=cfg.THROTTLE_STOPPED_PWM, 

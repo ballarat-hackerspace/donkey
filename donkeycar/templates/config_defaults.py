@@ -32,12 +32,19 @@ CAMERA_FRAMERATE = DRIVE_LOOP_HZ
 STEERING_CHANNEL = 1
 STEERING_LEFT_PWM = 420
 STEERING_RIGHT_PWM = 360
+# If using direct drive PWM (i.e. putting the servo signal directly into the Raspberry Pi)
+# Uncomment the next line and set STEERING_CHANNEL to the Raspberry Pi GPIO Pin
+# STEERING_ACTUATOR = 'direct'  # Options: 'direct', 'pca9685'
+
 
 #THROTTLE
 THROTTLE_CHANNEL = 0
 THROTTLE_FORWARD_PWM = 400
 THROTTLE_STOPPED_PWM = 360
 THROTTLE_REVERSE_PWM = 310
+# If using direct drive PWM (i.e. putting the servo signal directly into the Raspberry Pi)
+# Uncomment the next line and set THROTTLE_CHANNEL to the Raspberry Pi GPIO Pin
+# THROTTLE_ACTUATOR = 'direct'  # Options: 'direct', 'pca9685'
 
 #TRAINING
 BATCH_SIZE = 128

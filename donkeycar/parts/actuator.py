@@ -26,7 +26,33 @@ class PCA9685:
 
     def run(self, pulse):
         self.set_pulse(pulse)
-        
+
+    def stop(self):
+        self.set_pulse(0)
+
+
+class DirectPWM:
+    '''
+    PWM motor controler using PCA9685 boards.
+    This is used for most RC Cars
+    '''
+    def __init__(self, channel, frequency=60):
+        import RPi.GPIO as GPIO
+        # Initialise the PCA9685 using the default address (0x40).
+        self.pwm = GPIO.PWM(channel, frequency)
+        self.channel = channel
+        self.frequency = frequency
+
+    def set_pulse(self, pulse):
+        self.pwm.ChangeDutyCycle(self.channel, 0, pulse)
+
+    def run(self, pulse):
+        self.pwm.start(pulse)
+
+    def stop(self):
+        self.set_pulse(0)
+
+
 class PWMSteering:
     """
     Wrapper over a PWM motor cotnroller to convert angles to PWM pulses.
