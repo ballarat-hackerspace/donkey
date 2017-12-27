@@ -33,12 +33,14 @@ class PCA9685:
 
 class DirectPWM:
     '''
-    PWM motor controler using PCA9685 boards.
-    This is used for most RC Cars
+    PWM motor controler using PWM GPIO directly on the RPi.
+
+    For a Raspberry Pi 3, use pins BCM 18 or BCM 13.
     '''
     def __init__(self, channel, frequency=60):
         import RPi.GPIO as GPIO
-        # Initialise the PCA9685 using the default address (0x40).
+        # Initialise the direct PWM connection
+        GPIO.set_mode(GPIO.BCM)
         self.pwm = GPIO.PWM(channel, frequency)
         self.channel = channel
         self.frequency = frequency
