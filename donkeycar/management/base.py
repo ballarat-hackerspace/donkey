@@ -7,6 +7,7 @@ import argparse
 
 import donkeycar as dk
 from donkeycar.parts.datastore import Tub
+from donkeycar.templates.donkey2 import actuators
 from .tub import TubManager
 
 
@@ -141,15 +142,17 @@ class CalibrateCar(BaseCommand):
     def parse_args(self, args):
         parser = argparse.ArgumentParser(prog='calibrate', usage='%(prog)s [options]')
         parser.add_argument('--channel', help='The channel youd like to calibrate [0-15]')
+        parser.add_argument('--actuator', help='The actuator youd like to calibrate {"pca9865", "direct"}',
+                            default='pca9865', choices=actuators.keys())
         parsed_args = parser.parse_args(args)
         return parsed_args
 
     def run(self, args):
-        from donkeycar.parts.actuator import PCA9685
-    
         args = self.parse_args(args)
+
+        # Create the actuator from the given options
         channel = int(args.channel)
-        c = PCA9685(channel)
+        c = actuators[args.actuator](channel)
         
         for i in range(10):
             pmw = int(input('Enter a PWM setting to test(0-1500)'))
