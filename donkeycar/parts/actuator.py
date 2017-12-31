@@ -43,7 +43,6 @@ class DirectPWM:
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(channel, GPIO.OUT)
         self.pwm = GPIO.PWM(channel, frequency)
-        self.pwm.setPWMFreq(frequency)
         self.channel = channel
         self.frequency = frequency
 
