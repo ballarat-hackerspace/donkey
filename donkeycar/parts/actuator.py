@@ -47,7 +47,7 @@ class DirectPWM:
         self.frequency = frequency
 
     def set_pulse(self, pulse):
-        self.pwm.ChangeDutyCycle(self.channel, 0, pulse)
+        self.pwm.ChangeDutyCycle(pulse)
 
     def run(self, pulse):
         self.pwm.start(pulse)
