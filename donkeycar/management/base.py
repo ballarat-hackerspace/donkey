@@ -155,7 +155,7 @@ class CalibrateCar(BaseCommand):
         c = actuators[args.actuator](channel)
         
         for i in range(10):
-            pmw = int(input('Enter a PWM setting to test(0-1500)'))
+            pmw = float(input('Enter a PWM setting to test(0-1500)'))
             c.run(pmw)
 
 
