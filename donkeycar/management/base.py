@@ -421,6 +421,12 @@ def execute_from_command_line():
                 }
     
     args = sys.argv[:]
+
+    if len(args) <= 1:
+        dk.utils.eprint('Usage: The availible commands are:')
+        dk.utils.eprint(list(commands.keys()))
+        exit()
+
     command_text = args[1]
     
     if command_text in commands.keys():

@@ -114,6 +114,7 @@ class PWMThrottle:
                                     0, self.MAX_THROTTLE, 
                                     self.zero_pulse, self.max_pulse)
         else:
+            #TODO: This causes a division by zero error if min values are 0
             pulse = dk.utils.map_range(throttle,
                                     self.MIN_THROTTLE, 0, 
                                     self.min_pulse, self.zero_pulse)
