@@ -43,6 +43,7 @@ class DirectPWM:
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(channel, GPIO.OUT)
         self.pwm = GPIO.PWM(channel, frequency)
+        self.pwm.set_pulse(0)
         self.channel = channel
         self.frequency = frequency
 
@@ -77,7 +78,6 @@ class PWMSteering:
         pulse = dk.utils.map_range(angle,
                                 self.LEFT_ANGLE, self.RIGHT_ANGLE,
                                 self.left_pulse, self.right_pulse)
-
         self.controller.set_pulse(pulse)
 
     def shutdown(self):
