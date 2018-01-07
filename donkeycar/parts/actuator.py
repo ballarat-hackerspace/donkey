@@ -37,7 +37,7 @@ class DirectPWM:
 
     For a Raspberry Pi 3, use pins BCM 18 or BCM 13.
     '''
-    def __init__(self, channel, frequency=60):
+    def __init__(self, channel, frequency=2000):
         import RPi.GPIO as GPIO
         # Initialise the direct PWM connection
         GPIO.setmode(GPIO.BCM)
@@ -54,7 +54,7 @@ class DirectPWM:
         self.pwm.start(pulse)
 
     def stop(self):
-        self.ChangeDutyCycle(0)
+        self.set_pulse(0)
 
 
 class PWMSteering:
