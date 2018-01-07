@@ -43,7 +43,7 @@ class DirectPWM:
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(channel, GPIO.OUT)
         self.pwm = GPIO.PWM(channel, frequency)
-        self.pwm.set_pulse(0)
+        self.pwm.ChangeDutyCycle(0)
         self.channel = channel
         self.frequency = frequency
 
@@ -54,7 +54,7 @@ class DirectPWM:
         self.pwm.start(pulse)
 
     def stop(self):
-        self.set_pulse(0)
+        self.ChangeDutyCycle(0)
 
 
 class PWMSteering:
