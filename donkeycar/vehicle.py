@@ -87,6 +87,7 @@ class Vehicle():
 
             loop_count = 0
             while self.on:
+                print("Run loop starting...")
                 start_time = time.time()
                 loop_count += 1
 
@@ -98,6 +99,7 @@ class Vehicle():
 
                 sleep_time = 1.0 / rate_hz - (time.time() - start_time)
                 if sleep_time > 0.0:
+                    print("  sleep={}".format(sleep_time))
                     time.sleep(sleep_time)
 
         except KeyboardInterrupt:
