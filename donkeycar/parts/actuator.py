@@ -108,6 +108,9 @@ class PWMThrottle:
         self.controller.set_pulse(self.zero_pulse)
         time.sleep(1)
 
+    def __str__(self):
+        return "PWMThrottle(controller={})".format(self.controller)
+
 
     def run(self, throttle):
         if throttle > 0:

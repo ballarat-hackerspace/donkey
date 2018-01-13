@@ -38,7 +38,7 @@ class Vehicle():
         """
 
         p = part
-        print('Adding part {}.'.format(p.__class__.__name__))
+        print('Adding part {}.'.format(p))
         entry={}
         entry['part'] = p
         entry['inputs'] = inputs
