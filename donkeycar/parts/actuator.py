@@ -39,19 +39,18 @@ class DirectPWM:
     '''
     def __init__(self, channel, frequency=2000):
         import RPi.GPIO as GPIO
+        import pigpio
         # Initialise the direct PWM connection
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(channel, GPIO.OUT)
-        self.pwm = GPIO.PWM(channel, frequency)
-        self.pwm.ChangeDutyCycle(0)
         self.channel = channel
         self.frequency = frequency
+        self.pi = pigpio.pi()
 
     def set_pulse(self, pulse):
-        self.pwm.ChangeDutyCycle(pulse)
+        self.pi.set_servo_pulsewidth(self.channel, pulse)
 
     def run(self, pulse):
-        self.pwm.start(pulse)
+        self.pi.set_servo_pulsewidth(pulse)
 
     def stop(self):
         self.set_pulse(0)
