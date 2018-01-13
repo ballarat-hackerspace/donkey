@@ -22,8 +22,7 @@ class PCA9685:
         self.channel = channel
 
     def set_pulse(self, pulse):
-        print("Setting PCA9685 pulse to {}".format(pulse))
-        self.pwm.set_pwm(self.channel, 0, pulse) 
+        self.pwm.set_pwm(self.channel, 0, pulse)
 
     def run(self, pulse):
         self.set_pulse(pulse)
@@ -123,7 +122,8 @@ class PWMThrottle:
             pulse = dk.utils.map_range(throttle,
                                     self.MIN_THROTTLE, 0, 
                                     self.min_pulse, self.zero_pulse)
-        print("PWMController setting pulse to {}".format((throttle, pulse)))
+        if pulse:
+            print("PWMController setting pulse to {}".format((throttle, pulse)))
         self.controller.set_pulse(pulse)
         
     def shutdown(self):
