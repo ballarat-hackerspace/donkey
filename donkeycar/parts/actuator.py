@@ -47,10 +47,11 @@ class DirectPWM:
         self.pi = pigpio.pi()
 
     def set_pulse(self, pulse):
+        print("Setting direct pigpio pulse to {}".format(pulse))
         self.pi.set_servo_pulsewidth(self.channel, pulse)
 
     def run(self, pulse):
-        self.pi.set_servo_pulsewidth(pulse)
+        self.set_pulse(pulse)
 
     def stop(self):
         self.set_pulse(0)
