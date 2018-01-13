@@ -8,7 +8,6 @@ import time
 
 import donkeycar as dk
 
-        
 class PCA9685:
     ''' 
     PWM motor controler using PCA9685 boards. 
@@ -26,7 +25,29 @@ class PCA9685:
 
     def run(self, pulse):
         self.set_pulse(pulse)
-        
+
+
+class PigPIO:
+    '''
+    PWM motor controler using PCA9685 boards.
+    This is used for most RC Cars
+    '''
+    def __init__(self, channel):
+        import RPi.GPIO as GPIO
+        import pigpio
+        # Initialise the direct PWM connection
+        GPIO.setmode(GPIO.BCM)
+        self.channel = channel
+        self.pi = pigpio.pi()
+
+    def set_pulse(self, pulse):
+        if pulse > 0:
+            print("Setting direct pigpio pulse to {}".format(pulse))
+        self.pi.set_servo_pulsewidth(self.channel, pulse)
+
+    def run(self, pulse):
+        self.set_pulse(pulse)
+
 class PWMSteering:
     """
     Wrapper over a PWM motor cotnroller to convert angles to PWM pulses.

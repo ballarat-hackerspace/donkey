@@ -145,11 +145,14 @@ class CalibrateCar(BaseCommand):
         return parsed_args
 
     def run(self, args):
-        from donkeycar.parts.actuator import PCA9685
+        from donkeycar.parts.actuator import PCA9685, PigPIO
     
         args = self.parse_args(args)
         channel = int(args.channel)
-        c = PCA9685(channel)
+        if channel == 18:
+            c = PigPIO(channel)
+        else:
+            c = PCA9685(channel)
         
         for i in range(10):
             pmw = int(input('Enter a PWM setting to test(0-1500)'))
